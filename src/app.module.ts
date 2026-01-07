@@ -12,21 +12,21 @@ import { WatchlistModule } from './watchlist/watchlist.module';
   imports: [
     TypeOrmModule.forRoot({
       type: 'postgres',
-      // DİKKAT: Host kısmına Supabase veritabanı IP'ni yazacağız. 
-      // Eğer IP'ni bilmiyorsan şimdilik 6543 portlu Pooler hostunu yazıyorum.
-      host: 'aws-0-eu-central-1.pooler.supabase.com', 
+      // DİKKAT: Host adresini 'pooler' üzerinden güncelledik
+      host: 'aws-0-eu-central-1.pooler.supabase.com',
       port: 6543,
+      // Kullanıcı adının sonuna .projeID eklemek Supabase Pooler için ŞART
       username: 'postgres.yvyutniyznxnkypawqdb', 
       password: '1U9Z19G1gR0BmZoT',
       database: 'postgres',
       autoLoadEntities: true,
       synchronize: true,
       ssl: {
-        rejectUnauthorized: false,
+        rejectUnauthorized: false, // Sertifika hatasını susturur
       },
-      // EN ÖNEMLİ KISIM: IPv4 kullanımını zorlamak için
       extra: {
-        options: '-c project=yvyutniyznxnkypawqdb',
+        // Bu ayar Supabase'e "ben geldim, projem de bu" demenin en garanti yolu
+        options: '-c project=yvyutniyznxnkypawqdb'
       }
     }),
     UsersModule,
