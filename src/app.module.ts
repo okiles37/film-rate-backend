@@ -14,19 +14,18 @@ import { WatchlistModule } from './watchlist/watchlist.module';
       type: 'postgres',
       host: 'aws-0-eu-central-1.pooler.supabase.com',
       port: 6543,
-      // DİKKAT: Kullanıcı adının sonuna proje ID'ni ekledik
-      username: 'postgres.yvyutniyznxnkypawqdb', 
+      username: 'postgres.yvyutniyznxnkypawqdb', // Kullanıcı adında proje ID şart
       password: '1U9Z19G1gR0BmZoT',
       database: 'postgres',
       autoLoadEntities: true,
-      synchronize: true, // Tabloları senin için otomatik açacak
+      synchronize: true,
       ssl: {
-        rejectUnauthorized: false, // Sertifika hatasını susturan ayar
+        rejectUnauthorized: false, // Sertifika hatasını susturur
       },
       extra: {
         // Supabase bazen proje ID'sini burada da görmek ister
-        options: '-c project=yvyutniyznxnkypawqdb',
-      },
+        options: '-c project=yvyutniyznxnkypawqdb'
+      }
     }),
     UsersModule,
     FilmsModule,
