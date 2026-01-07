@@ -12,20 +12,13 @@ import { WatchlistModule } from './watchlist/watchlist.module';
   imports: [
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: 'aws-0-eu-central-1.pooler.supabase.com',
-      port: 6543,
-      username: 'postgres.yvyutniyznxnkypawqdb', // Kullanıcı adında proje ID şart
-      password: '1U9Z19G1gR0BmZoT',
-      database: 'postgres',
+      // PORTU TEKRAR 5432 YAPTIK AMA SONUNA ÖZEL SSL EKLEDİK
+      url: 'postgresql://postgres:1U9Z19G1gR0BmZoT@db.yvyutniyznxnkypawqdb.supabase.co:5432/postgres?sslmode=require',
       autoLoadEntities: true,
-      synchronize: true,
+      synchronize: true, 
       ssl: {
-        rejectUnauthorized: false, // Sertifika hatasını susturur
+        rejectUnauthorized: false, // Bu satırı ASLA silme, hayat kurtarır
       },
-      extra: {
-        // Supabase bazen proje ID'sini burada da görmek ister
-        options: '-c project=yvyutniyznxnkypawqdb'
-      }
     }),
     UsersModule,
     FilmsModule,
