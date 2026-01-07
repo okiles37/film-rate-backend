@@ -4,14 +4,19 @@ import { AppModule } from './app.module';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   
-  // CORS'u etkinleştir
+  // CORS ayarını en esnek hale getirdik
+  // Bu sayede Vercel'deki siten backend'e rahatça ulaşabilecek
   app.enableCors({
-    origin: 'http://localhost:5173', // Frontend URL
-    methods: 'GET,POST,PUT,DELETE',
+    origin: true, // Tüm kaynaklara izin ver
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
     credentials: true,
   });
 
-  await app.listen(3000);
-  console.log(`Application is running on: http://localhost:3000`);
+  // Render'ın dinamik port atamasını (process.env.PORT) önceliğe aldık
+  // Eğer port atanmamışsa yerelde 3000'den çalışmaya devam eder
+  const port = process.env.PORT || 3000;
+  
+  await app.listen(port);
+  console.log(`Uygulama şu port üzerinden yayında: ${port}`);
 }
 bootstrap();
