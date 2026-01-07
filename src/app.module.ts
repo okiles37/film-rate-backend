@@ -11,10 +11,13 @@ import { WatchlistModule } from './watchlist/watchlist.module'; // BU SATIRI EKL
 @Module({
   imports: [
     TypeOrmModule.forRoot({
-      type: 'sqlite',
-      database: 'database.sqlite',
-      entities: [__dirname + '/**/*.entity{.ts,.js}'],
-      synchronize: true,
+      type: 'postgres',
+  url: 'postgresql://postgres:SENIN_SIFREN@db.yvyutniyznxnkypawqdb.supabase.co:5432/postgres',
+  autoLoadEntities: true,
+  synchronize: true, // Tabloları Supabase'de senin için otomatik oluşturacak
+  ssl: {
+    rejectUnauthorized: false // Render'ın güvenli bağlanması için bu şart
+  },
     }),
     UsersModule,
     FilmsModule,
