@@ -12,19 +12,14 @@ import { WatchlistModule } from './watchlist/watchlist.module';
   imports: [
     TypeOrmModule.forRoot({
       type: 'postgres',
-      // PORTU 6543 YAPTIK VE SSL PARAMETRESİNİ EKLEDİK
-      url: 'postgresql://postgres:1U9Z19G1gR0BmZoT@aws-0-eu-central-1.pooler.supabase.com:6543/postgres?sslmode=require',
+      // Supabase Pooler adresin (IPv4 desteği için 6543 şart)
+      url: 'postgresql://postgres:1U9Z19G1gR0BmZoT@aws-0-eu-central-1.pooler.supabase.com:6543/postgres',
       autoLoadEntities: true,
-      synchronize: true,
+      synchronize: true, // Tabloları otomatik oluşturur
       ssl: {
-        rejectUnauthorized: false, // Render için kritik
+        // İŞTE ÇÖZÜM BURASI: Sertifika hatasını bu satır susturur
+        rejectUnauthorized: false, 
       },
-      // Bağlantı kopmalarını önlemek için extra ayar
-      extra: {
-        max: 20,
-        idleTimeoutMillis: 30000,
-        connectionTimeoutMillis: 2000,
-      }
     }),
     UsersModule,
     FilmsModule,
