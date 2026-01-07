@@ -12,18 +12,21 @@ import { WatchlistModule } from './watchlist/watchlist.module';
   imports: [
     TypeOrmModule.forRoot({
       type: 'postgres',
-      // KULLANICI ADI KISMINA PROJE ID'SİNİ EKLEDİK: postgres.yvyutniyznxnkypawqdb
-      url: 'postgresql://postgres.yvyutniyznxnkypawqdb:1U9Z19G1gR0BmZoT@aws-0-eu-central-1.pooler.supabase.com:6543/postgres',
+      host: 'aws-0-eu-central-1.pooler.supabase.com',
+      port: 6543,
+      // DİKKAT: Kullanıcı adının sonuna proje ID'ni ekledik
+      username: 'postgres.yvyutniyznxnkypawqdb', 
+      password: '1U9Z19G1gR0BmZoT',
+      database: 'postgres',
       autoLoadEntities: true,
-      synchronize: true, // Tabloları Supabase'de senin için otomatik oluşturur
+      synchronize: true, // Tabloları senin için otomatik açacak
       ssl: {
-        rejectUnauthorized: false, // Sertifika hatasını (self-signed) çözen kritik ayar
+        rejectUnauthorized: false, // Sertifika hatasını susturan ayar
       },
-      // Bağlantı havuzu ayarları (Bağlantı sıfırlanma hatasını önlemek için)
       extra: {
-        max: 10,
-        idleTimeoutMillis: 30000,
-      }
+        // Supabase bazen proje ID'sini burada da görmek ister
+        options: '-c project=yvyutniyznxnkypawqdb',
+      },
     }),
     UsersModule,
     FilmsModule,
