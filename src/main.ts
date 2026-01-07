@@ -3,13 +3,17 @@ import { AppModule } from './app.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  
-  // CORS ayarını en esnek hale getirdik
-  // Bu sayede Vercel'deki siten backend'e rahatça ulaşabilecek
-  app.enableCors({
-    origin: true, // Tüm kaynaklara izin ver
+    app.enableCors({
+    origin: true,
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
     credentials: true,
+  });
+
+ 
+  const port = process.env.PORT || 3000;
+  await app.listen(port, '0.0.0.0'); 
+  
+  console.log(`Uygulama port ${port} üzerinde dış dünyaya açıldı.`);
   });
 
   // Render'ın dinamik port atamasını (process.env.PORT) önceliğe aldık
