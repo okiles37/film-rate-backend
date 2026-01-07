@@ -12,13 +12,22 @@ import { WatchlistModule } from './watchlist/watchlist.module';
   imports: [
     TypeOrmModule.forRoot({
       type: 'postgres',
-      // PORTU TEKRAR 5432 YAPTIK AMA SONUNA ÖZEL SSL EKLEDİK
-      url: 'postgresql://postgres:1U9Z19G1gR0BmZoT@db.yvyutniyznxnkypawqdb.supabase.co:5432/postgres?sslmode=require',
+      // DİKKAT: Host kısmına Supabase veritabanı IP'ni yazacağız. 
+      // Eğer IP'ni bilmiyorsan şimdilik 6543 portlu Pooler hostunu yazıyorum.
+      host: 'aws-0-eu-central-1.pooler.supabase.com', 
+      port: 6543,
+      username: 'postgres.yvyutniyznxnkypawqdb', 
+      password: '1U9Z19G1gR0BmZoT',
+      database: 'postgres',
       autoLoadEntities: true,
-      synchronize: true, 
+      synchronize: true,
       ssl: {
-        rejectUnauthorized: false, // Bu satırı ASLA silme, hayat kurtarır
+        rejectUnauthorized: false,
       },
+      // EN ÖNEMLİ KISIM: IPv4 kullanımını zorlamak için
+      extra: {
+        options: '-c project=yvyutniyznxnkypawqdb',
+      }
     }),
     UsersModule,
     FilmsModule,
