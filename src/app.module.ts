@@ -12,22 +12,13 @@ import { WatchlistModule } from './watchlist/watchlist.module';
   imports: [
     TypeOrmModule.forRoot({
       type: 'postgres',
-      // DİKKAT: Host adresini 'pooler' üzerinden güncelledik
-      host: 'aws-0-eu-central-1.pooler.supabase.com',
-      port: 6543,
-      // Kullanıcı adının sonuna .projeID eklemek Supabase Pooler için ŞART
-      username: 'postgres.yvyutniyznxnkypawqdb', 
-      password: '1U9Z19G1gR0BmZoT',
-      database: 'postgres',
+      // SENİN NEON LİNKİNİ BURAYA YERLEŞTİRDİM
+      url: 'postgresql://neondb_owner:npg_1vdL8ZQTlcfi@ep-orange-unit-agu5hhm1-pooler.c-2.eu-central-1.aws.neon.tech/neondb?sslmode=require',
       autoLoadEntities: true,
-      synchronize: true,
+      synchronize: true, // Tabloları Neon'da senin için otomatik oluşturacak
       ssl: {
-        rejectUnauthorized: false, // Sertifika hatasını susturur
+        rejectUnauthorized: false, // Render ve Neon arasındaki bağlantı için bu şart
       },
-      extra: {
-        // Bu ayar Supabase'e "ben geldim, projem de bu" demenin en garanti yolu
-        options: '-c project=yvyutniyznxnkypawqdb'
-      }
     }),
     UsersModule,
     FilmsModule,
